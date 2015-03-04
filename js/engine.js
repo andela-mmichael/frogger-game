@@ -31,7 +31,8 @@ var Engine = (function(global) {
     doc.body.appendChild(canvas);
 
     ctx.font = "20px Georgia";
-    ctx.fillText("SCORE: ", 350, 40);    
+    ctx.fillText("SCORE: ", 350, 40);   
+    ctx.fillStyle = "#FFA500";
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.

@@ -40,6 +40,7 @@ function Player(x,y){
         this.x = 200;
         this.y = 482;
     }
+    this.score = 0;
 }
 
 Player.prototype.update = function(){
