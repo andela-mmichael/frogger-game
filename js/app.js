@@ -23,6 +23,13 @@ Enemy.prototype.update = function(dt) {
     }*/
 }
 
+
+var melody = new Audio('audio/game-sound.mp3');
+//melody.loop() = true;
+melody.play();
+var move = new Audio('audio/jump.wav');
+var hit  = new Audio('audio/collision.wav');
+
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -40,14 +47,20 @@ function Player(x,y){
         this.x = 200;
         this.y = 482;
     }
-    this.score = 0;
 }
 
+var score = 0;
 Player.prototype.update = function(){
     if(this.y <= 50){
+        score++;
         alert("YOU WIN!");
         this.reset();
     }
+   /* if(score === 5){        
+        alert("YOU WIN!");
+        this.reset();
+        score = 0;
+    }*/
 };
 
 Player.prototype.render = function () {
@@ -59,7 +72,7 @@ Player.prototype.handleInput = function(key){
         case 'up':
             if(this.y > 50){
                 this.y -= 82;
-                console.log(this.y);
+                move.play();
             }
             
             break;
@@ -67,6 +80,7 @@ Player.prototype.handleInput = function(key){
         case 'down':
             if(this.y < 450){
                 this.y += 82;
+                move.play();
             }
 
             break;
@@ -74,6 +88,7 @@ Player.prototype.handleInput = function(key){
         case 'left':
             if(this.x > 0){
                 this.x -= 100;
+                move.play();
             }
 
             break;
@@ -81,6 +96,7 @@ Player.prototype.handleInput = function(key){
         case 'right':
             if(this.x < 400){
                 this.x += 100;
+                move.play();
             }
 
             break;

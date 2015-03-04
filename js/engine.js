@@ -31,7 +31,7 @@ var Engine = (function(global) {
     doc.body.appendChild(canvas);
 
     ctx.font = "20px Georgia";
-    ctx.fillText("SCORE: ", 350, 40);   
+    ctx.fillText("SCORE: " + this.score, 320, 40);   
     ctx.fillStyle = "#FFA500";
 
     /* This function serves as the kickoff point for the game loop itself
@@ -115,6 +115,7 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy){
             if(((enemy.x < player.x) && (enemy.x + 50 > player.x)) && 
                 ((enemy.y + 100 > player.y + 50) && (enemy.y + 50 < player.y + 50))) {
+                hit.play();
                 player.reset();
             }
         });
