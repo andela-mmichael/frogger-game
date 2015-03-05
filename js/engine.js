@@ -145,7 +145,7 @@ var Engine = (function(global) {
                 if (live === 0){
                     alert("OH DEAR! YOU LOSE!");
                     player.restart();
-                    live = 0;
+                    live = 5;
                     score = 0;
                 }
             }
