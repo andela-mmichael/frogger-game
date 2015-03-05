@@ -120,7 +120,7 @@ var Engine = (function(global) {
                 alert("YOU WIN!");
                 player.restart(); 
                 score = 0;
-                live = 0;
+                live = 5;
             }        
         }
         ctx.font = "28px Georgia";
