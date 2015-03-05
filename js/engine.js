@@ -28,11 +28,7 @@ var Engine = (function(global) {
 
     canvas.width = 505;
     canvas.height = 707;
-    doc.body.appendChild(canvas);
-
-    ctx.font = "20px Georgia";
-    ctx.fillText("SCORE: " + this.score, 320, 40);   
-    ctx.fillStyle = "#FFA500";
+    doc.body.appendChild(canvas);      
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -103,6 +99,9 @@ var Engine = (function(global) {
         player.update();
     }
 
+    var score = 0;
+    var live  = 5;
+
     function checkEndPoint(){
         allEnemies.forEach(function(enemy){
             if(enemy.x >= canvas.width){
@@ -111,15 +110,48 @@ var Engine = (function(global) {
         });
         
     }
+
+    function countScore() {
+        if(player.y <= 50){
+            score++;
+            player.restart();
+
+            if(score === 5){
+                alert("YOU WIN!");
+                player.restart(); 
+                score = 0;
+                live = 0;
+            }        
+        }
+        ctx.font = "28px Georgia";
+        ctx.fillStyle = "#fafafa";
+        ctx.fillText("Score: " + score, 320, 95); 
+    }
+
+    function countLive(){
+        ctx.drawImage(Resources.get('images/live.png'), 5, 40);
+        ctx.font  = '32px Georgia';
+        ctx.fillStyle  = '#fafafa';
+        ctx.fillText(live, 60, 90);
+    }
+
     function checkCollisions() {
         allEnemies.forEach(function(enemy){
             if(((enemy.x < player.x) && (enemy.x + 50 > player.x)) && 
                 ((enemy.y + 100 > player.y + 50) && (enemy.y + 50 < player.y + 50))) {
                 hit.play();
-                player.reset();
+                player.restart();
+                live--;
+                if (live === 0){
+                    alert("OH DEAR! YOU LOSE!");
+                    player.restart();
+                    live = 0;
+                    score = 0;
+                }
             }
         });
     }
+
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
@@ -177,8 +209,15 @@ var Engine = (function(global) {
             enemy.render();
         });
 
-        player.render();
+        player.render(); 
+
+        countScore();
+        countLive();
+
+        
     }
+
+
 
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
@@ -198,7 +237,7 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
-        'images/Gem Blue.png'
+        'images/live.png'
     ]);
     Resources.onReady(init);
 

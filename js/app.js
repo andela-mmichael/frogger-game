@@ -25,8 +25,12 @@ Enemy.prototype.update = function(dt) {
 
 
 var melody = new Audio('audio/game-sound.mp3');
-//melody.loop() = true;
-melody.play();
+//melody.play();
+//melody.controls = true;
+melody.loop = true;
+melody.autoplay = true;
+//document.body.appendChild(melody);
+
 var move = new Audio('audio/jump.wav');
 var hit  = new Audio('audio/collision.wav');
 
@@ -43,24 +47,14 @@ function Player(x,y){
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
-    this.reset = function() {
+    this.restart = function() {
         this.x = 200;
         this.y = 482;
     }
 }
 
-var score = 0;
 Player.prototype.update = function(){
-    if(this.y <= 50){
-        score++;
-        alert("YOU WIN!");
-        this.reset();
-    }
-   /* if(score === 5){        
-        alert("YOU WIN!");
-        this.reset();
-        score = 0;
-    }*/
+    
 };
 
 Player.prototype.render = function () {
@@ -111,7 +105,7 @@ Player.prototype.handleInput = function(key){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var player = new Player(200, 482);
-var allEnemies = [new Enemy(-100,60), new Enemy(-150, 230), new Enemy(-200,145), new Enemy(-250,300)];
+var allEnemies = [new Enemy(-200,60), new Enemy(2, 230), new Enemy(-50,145), new Enemy(100,300)];
 
 
 
